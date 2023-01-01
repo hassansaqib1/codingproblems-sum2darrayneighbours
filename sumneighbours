@@ -1,0 +1,144 @@
+//
+//  main.cpp
+//  Data_homework
+//
+//  Created by Hassan Saqib on 07/09/2022.
+//  this code in c++ will take 2d array input from user  and calculate neoubering elements
+//  by using indiviusal if statemnts and store them in new 2d array
+//  the process is done mostly  by using pointers
+
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+//function will return the sum of neighbours elements
+//function will take in as parameters address of value to which neighbours elements will be sumed
+//and number of rows ,columbs ,current row,current columb.
+int sum_nebours(int * cordinate_ptr,int rows,int columbs ,int postion_rows,int postion_columbs){
+    
+    //code will indiviually find each neighbours element
+    int upper=0,upperleft=0,upperright=0,right=0,left=0,lower=0,lowerright=0,lowerleft=0;
+    
+    int* temp_ptr=cordinate_ptr;
+    
+    
+// codition for upper value
+    if (postion_rows>1) {
+        upper=*(temp_ptr-(1*columbs));
+    }
+    
+     temp_ptr=cordinate_ptr;
+    
+//    codition for upper left value
+    if (postion_rows>1 && postion_columbs>1) {
+        upperleft=*(temp_ptr-(1*columbs)-1);
+    }
+    
+    temp_ptr=cordinate_ptr;
+    
+//    codition for upper right value
+    if (postion_rows>1 && postion_columbs<columbs) {
+        upperright=*(temp_ptr-(1*columbs)+1);
+    }
+    
+     temp_ptr=cordinate_ptr;
+    
+//    codition for left value
+    if (postion_columbs>1 ) {
+        left=*(temp_ptr-1);
+    }
+    
+    temp_ptr=cordinate_ptr;
+    
+//    codition for right value
+    if (postion_columbs<columbs) {
+        right=*(temp_ptr+1);
+    }
+    
+    temp_ptr=cordinate_ptr;
+    
+//    codition for lower value
+    if (postion_rows<rows) {
+        lower=*(temp_ptr+(1*columbs));
+    }
+    
+     temp_ptr=cordinate_ptr;
+    
+//    codition for lower left value
+    if (postion_rows<rows && postion_columbs>1) {
+        lowerleft=*(temp_ptr+(1*columbs)-1);
+    }
+    
+     temp_ptr=cordinate_ptr;
+    
+//    codition for lower right value
+    if (postion_rows<rows && postion_columbs<columbs) {
+        lowerright=*(temp_ptr+(1*columbs)+1);
+    }
+    
+     temp_ptr=NULL;
+    //then return the sum of all nebouring values
+    return (upper+upperleft+upperright+right+left+lower+lowerleft+lowerright);
+}
+
+
+int main(int argc, const char * argv[]) {
+    
+    //taking user input for rows and columbs
+    int rows,columbs;
+    cout<<"Enter the number of rows:";
+    cin>>rows;
+    cout<<"Enter the number of columbs:";
+    cin>>columbs;
+    
+    //dynamicly allocation memory of size rows * coloumbs
+    //to create a 2d arrray
+    int * block = new int (rows * columbs);
+    
+    //taking input to the rows and coloumbs from user
+    for (int i=0; i<rows; i++) {
+        for (int j=0; j<columbs; j++) {
+            cout<<"Enter value at ["<<i+1<<"]["<<j+1<<"]:";
+    //storing value using derefrencing  pointer
+            cin>>*(block + i * columbs +j);
+        }
+    }
+    //displaying input array to user
+    cout<<"2d array that you have entered:"<<endl;
+    for (int i=0; i<rows; i++) {
+        for (int j=0; j<columbs; j++) {
+          cout<<setw(5)<<  *(block + i * columbs +j)<<" ";
+        }
+        cout<<endl;
+    }
+    
+    
+//    dynamicly allocation memory to 2darray of size rows * coloumbs
+//    new block of memory/2darray to store outputs
+    int * block2 = new int (rows * columbs );
+
+
+//    using for loop to give values and parameters to sum_neboures function
+//    and storing the retured values in 2darray
+    for (int i=0; i<rows; i++) {
+        for (int j=0; j<columbs; j++) {
+            *(block2 + i * columbs +j)=sum_nebours(block+(i*columbs)+j, rows,columbs , i+1, j+1);
+        }
+    }
+    
+//   printing 2d array that has sum of neiubring values
+    cout<<"2d with sum of nebouring elements:"<<endl;
+    for (int i=0; i<rows; i++) {
+        for (int j=0; j<columbs; j++) {
+          cout<<setw(5)<<  *(block2 + i * columbs +j)<<" ";
+        }
+        cout<<endl;
+    }
+    //deleting allocated memory in order to free space
+    delete block;
+    delete block2;
+    
+    return 0;
+}
+// Created by Hassan Saqib on 07/09/2022.
+//------------------------------------------------------------------------
