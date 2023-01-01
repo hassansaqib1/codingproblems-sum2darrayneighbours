@@ -1,0 +1,8 @@
+ Assume a 2D array (input) of size 6 X 6. Consider another matrix (output) of size 6 X 6.
+ Each element i of output computed as:
+ Output i= 1/Inputi
+ Each calculations in the output showing
+ shown below.
+ Write a c++ program to produce the output matrix given input matrix.
+ in new 2d array at every index the sum neighbouring elements of previous 2d array should be stored 
+ write suportive code and comments in code
